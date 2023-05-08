@@ -11,5 +11,5 @@ Genome Metadata Visualizer is a series of scripts written to process and visuali
 * ```/html```: contains the html versions of the jupyter notebook files which show our process with embedded results. 
 
 Sample output: 
-![Contig N50 with respect to earliest assembly submission date](samples/Contig_n50_time.png)
-![Sequence length and GC content of various spiralian phyla](samples/Phylum_counts.png)
+![Contig N50 with respect to earliest assembly submission date](sample_output/Contig_n50_time.png)
+![Sequence length and GC content of various spiralian phyla](sample_output/Phylum_counts.png)
