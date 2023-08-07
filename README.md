@@ -1,5 +1,6 @@
-# Metadata
-Metadata is a script written to process and visualise genome metadata after it is pulled from NCBI using the dataset and dataformat command line tools. This repository contains the following: 
+Genome Metadata Visualizer is a series of scripts written to process and visualise genome metadata after it is pulled from NCBI using the dataset and dataformat command line tools. Additional documentation for how to install and use NCBI's command line tools can be found at the following link: https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/
+
+This repository contains the following: 
 
 * ```/executable```: folder containing executable juyter notebook files as well as input data
    * ```AcquiringMetadata.ipynb```: contains documentation on how we ran NCBI's command line tools to pull spiralian genome data, followed by script to import it into python as a pandas dataframe and perform necessary edits/add additional information (including using biopython to find phylum based on taxid). Saves resulting pandas dataframe into metadata.csv to be used in following scripts. 
