@@ -15,5 +15,5 @@ Publication:
 Liao and Lu, et al. Spiralian genomics and the evolution of animal genome architecture, Briefings in Functional Genomics, 2023, elad029, https://doi.org/10.1093/bfgp/elad029
 
 Sample output: 
-![Contig N50 with respect to earliest assembly submission date](samples/Contig_n50_time.png)
-![Sequence length and GC content of various spiralian phyla](samples/Phylum_counts.png)
+![Contig N50 with respect to earliest assembly submission date](sample_output/Contig_n50_time.png)
+![Sequence length and GC content of various spiralian phyla](sample_output/Phylum_counts.png)
