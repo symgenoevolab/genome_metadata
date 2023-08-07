@@ -14597,15 +14597,17 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Acquiring-and-Cleaning-Metadata">Acquiring and Cleaning Metadata<a class="anchor-link" href="#Acquiring-and-Cleaning-Metadata">&#182;</a></h1><h2 id="1.-Using-NCBI's-Command-Line-Tools">1. Using NCBI's Command Line Tools<a class="anchor-link" href="#1.-Using-NCBI's-Command-Line-Tools">&#182;</a></h2><p>NCBI has published command line tools to search and pull metadata. The provided file <code>spiralia_metadata_18apr2023.tsv</code> is the resulting output of running datasets and dataformat on the query <em>spiralia</em> on the 18th of April, 2023. 
-The metadata is pulled using the <code>datasets</code> tool with the following line:</p>
+<h1 id="Acquiring-and-Cleaning-Metadata">Acquiring and Cleaning Metadata<a class="anchor-link" href="#Acquiring-and-Cleaning-Metadata">&#182;</a></h1><p>Last Updated 31st July 2023</p>
+<p>Note: As of 31st July 2023, slight changes in NCBI's command line tools have impacted the way these scripts run. The file <code>metadata-sample.csv</code> was acquired with a prior version of NCBI's dataformat and can be directly used to run the <code>Boxplot</code> and <code>PlottingContigN50</code> scripts. This following section provides updated details on how to create a similar file. If there are any unexpected difficulties in using NCBI's command line tools, check to make sure that both <code>datasets</code> and <code>dataformat</code> is up to date.</p>
+<h2 id="1.-Using-NCBI's-Command-Line-Tools">1. Using NCBI's Command Line Tools<a class="anchor-link" href="#1.-Using-NCBI's-Command-Line-Tools">&#182;</a></h2><p>NCBI has published command line tools to search and pull metadata. Running this code will result in a .tsv file, which can then adapted using the following script to prepare for visualisation in Python.</p>
+<p>The metadata is pulled using the <code>datasets</code> tool with the following line:</p>
 <p><code>datasets summary genome taxon spiralia --as-json-lines</code></p>
 <p>This is then piped into the <code>dataformat</code> tool which reformats the output to make it easier to use. 
 <code>dataformat tsv genome</code></p>
 <p>Without any flags, NCBI provides all fields by default. Certain tags can be chosen under the <code>--fields</code> flag to request specific columns so that the resulting table is more manageable.</p>
 <p>The final command including fields is shown below. The result is saved into a .tsv file to be fed into pandas.</p>
 <blockquote>
-<p><code>datasets summary genome taxon spiralia --as-json-lines | dataformat tsv genome --fields accession,organism-name,organism-common-name,organism-tax-id,assminfo-submitter,assminfo-submission-date,assminfo-sequencing-tech,assminfo-level,assmstats-contig-l50,assmstats-contig-n50,assmstats-gc-count,assmstats-gc-percent,assmstats-number-of-component-sequences,assmstats-number-of-contigs,assmstats-number-of-scaffolds,assmstats-scaffold-l50,assmstats-scaffold-n50,assmstats-total-number-of-chromosomes,assmstats-total-sequence-len,assmstats-total-ungapped-len,organism-infraspecific-sex,source_database,wgs-project-accession &gt; spiralia_metadata_18apr2023.tsv</code></p>
+<p><code>datasets summary genome taxon spiralia --as-json-lines | dataformat tsv genome --fields accession,organism-name,organism-common-name,organism-tax-id,assminfo-submitter,assminfo-release-date,assminfo-sequencing-tech,assminfo-level,assmstats-contig-l50,assmstats-contig-n50,assmstats-gc-count,assmstats-gc-percent,assmstats-number-of-component-sequences,assmstats-number-of-contigs,assmstats-number-of-scaffolds,assmstats-scaffold-l50,assmstats-scaffold-n50,assmstats-total-number-of-chromosomes,assmstats-total-sequence-len,assmstats-total-ungapped-len,organism-infraspecific-sex,source_database,wgs-project-accession &gt; ncbi_output.tsv</code></p>
 </blockquote>
 
 </div>
@@ -14692,9 +14694,8 @@ The metadata is pulled using the <code>datasets</code> tool with the following l
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">in_data</span> <span class="o">=</span> <span class="n">processNcbiMetadata</span><span class="p">(</span><span class="s1">&#39;spiralia_metadata_18apr2023.tsv&#39;</span><span class="p">)</span> 
-<span class="n">in_data</span> <span class="o">=</span> <span class="n">prepareMetadata</span><span class="p">(</span><span class="n">in_data</span><span class="p">)</span> 
-<span class="n">out_file</span> <span class="o">=</span> <span class="s1">&#39;metadata.csv&#39;</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">in_data</span> <span class="o">=</span> <span class="n">processNcbiMetadata</span><span class="p">(</span><span class="s1">&#39;ncbi_output.tsv&#39;</span><span class="p">)</span> 
+<span class="n">out_file</span> <span class="o">=</span> <span class="s1">&#39;metadata.csv&#39;</span>  
 </pre></div>
 
      </div>
@@ -14755,7 +14756,11 @@ The metadata is pulled using the <code>datasets</code> tool with the following l
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">crawl_metadata</span><span class="o">.</span><span class="n">firstPub</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Note that in newer versions of NCBI&#39;s command line tools, the submission date</span>
+<span class="c1">#   column has been replaced by more precise date columns. </span>
+<span class="c1">#   In this update, the firstPub function will reference &#39;Release_Date&#39; by default</span>
+<span class="c1">#   but this can be changed to &#39;Submission_Date&#39; parameter if using older datasets </span>
+<span class="n">crawl_metadata</span><span class="o">.</span><span class="n">firstPub</span><span class="p">(</span><span class="n">date_column</span> <span class="o">=</span> <span class="s1">&#39;Release_Date&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14775,7 +14780,7 @@ The metadata is pulled using the <code>datasets</code> tool with the following l
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Complete: 63/63</pre>
+<pre>Complete: 68/68</pre>
 </div>
 </div>
 
@@ -14853,7 +14858,8 @@ The metadata is pulled using the <code>datasets</code> tool with the following l
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">phyla</span> <span class="o">=</span> <span class="p">[</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;ScientificName&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span> <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;LineageEx&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;phylum&#39;</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">phyla</span> <span class="o">=</span> <span class="p">[</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;ScientificName&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span> 
+         <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;LineageEx&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;phylum&#39;</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
 </pre></div>
 
      </div>
@@ -14984,7 +14990,7 @@ The metadata is pulled using the <code>datasets</code> tool with the following l
       <th>Organism_Common_Name</th>
       <th>Organism_Taxonomic_ID</th>
       <th>Submitter</th>
-      <th>Submission_Date</th>
+      <th>Release_Date</th>
       <th>Sequencing_Tech</th>
       <th>Level</th>
       <th>Contig_L50</th>
@@ -15049,7 +15055,7 @@ The metadata is pulled using the <code>datasets</code> tool with the following l
       <td>Scaffold</td>
       <td>2133</td>
       <td>68151</td>
-      <td>192012380.0</td>
+      <td>192012380</td>
       <td>39.0</td>
       <td>3983</td>
       <td>15468</td>
@@ -15078,7 +15084,7 @@ The metadata is pulled using the <code>datasets</code> tool with the following l
       <td>Scaffold</td>
       <td>17834</td>
       <td>4788</td>
-      <td>110948516.0</td>
+      <td>110948516</td>
       <td>34.0</td>
       <td>113601</td>
       <td>123365</td>
@@ -15107,7 +15113,7 @@ The metadata is pulled using the <code>datasets</code> tool with the following l
       <td>Scaffold</td>
       <td>52451</td>
       <td>2318</td>
-      <td>153668160.0</td>
+      <td>153668160</td>
       <td>36.0</td>
       <td>257561</td>
       <td>260149</td>
@@ -15187,7 +15193,7 @@ The metadata is pulled using the <code>datasets</code> tool with the following l
       <th>Organism_Common_Name</th>
       <th>Organism_Taxonomic_ID</th>
       <th>Submitter</th>
-      <th>Submission_Date</th>
+      <th>Release_Date</th>
       <th>Sequencing_Tech</th>
       <th>Level</th>
       <th>Contig_L50</th>
@@ -15252,7 +15258,7 @@ The metadata is pulled using the <code>datasets</code> tool with the following l
       <td>Scaffold</td>
       <td>1942</td>
       <td>56068</td>
-      <td>141655982.0</td>
+      <td>141655982</td>
       <td>36.0</td>
       <td>2677</td>
       <td>13877</td>
@@ -15265,8 +15271,8 @@ The metadata is pulled using the <code>datasets</code> tool with the following l
       <td>male</td>
       <td>SOURCE_DATABASE_REFSEQ</td>
       <td>LFEI02</td>
-      <td>2015-06-24</td>
-      <td>53371</td>
+      <td>2018-01-26</td>
+      <td>56068</td>
       <td>Brachiopoda</td>
       <td>Long read</td>
     </tr>
@@ -15281,7 +15287,7 @@ The metadata is pulled using the <code>datasets</code> tool with the following l
       <td>Scaffold</td>
       <td>1942</td>
       <td>56068</td>
-      <td>141655982.0</td>
+      <td>141655982</td>
       <td>36.0</td>
       <td>2677</td>
       <td>13877</td>
@@ -15294,8 +15300,8 @@ The metadata is pulled using the <code>datasets</code> tool with the following l
       <td>male</td>
       <td>SOURCE_DATABASE_GENBANK</td>
       <td>LFEI02</td>
-      <td>2015-06-24</td>
-      <td>53371</td>
+      <td>2018-01-26</td>
+      <td>56068</td>
       <td>Brachiopoda</td>
       <td>Long read</td>
     </tr>

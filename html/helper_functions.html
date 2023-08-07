@@ -14607,7 +14607,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Takes in a filepath to a tsv file for information pulled from NCBI using dataset/dataformat. </span>
@@ -14629,7 +14629,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Prune the metadata to keep only one assembly per species, selecting for the earliest publication date. </span>
@@ -14650,12 +14650,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Prune the metadata to keep only one assembly per species, selecting for the most recent publication date. </span>
-<span class="k">def</span> <span class="nf">metadataNewest</span><span class="p">(</span><span class="n">metadata</span><span class="p">):</span> 
-    <span class="n">newest</span> <span class="o">=</span> <span class="p">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Submission_Date&#39;</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">metadataNewest</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">sort_by</span> <span class="o">=</span> <span class="s1">&#39;Release_Date&#39;</span><span class="p">):</span> 
+    <span class="n">newest</span> <span class="o">=</span> <span class="p">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">sort_by</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
                       <span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="s1">&#39;Organism_Name&#39;</span><span class="p">,</span> <span class="n">keep</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span><span class="p">))</span>
     <span class="n">newest</span> <span class="o">=</span> <span class="n">newest</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Accession&#39;</span><span class="p">,</span> <span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> 
     <span class="k">return</span><span class="p">(</span><span class="n">newest</span><span class="p">)</span>
@@ -14671,7 +14671,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Rename the columns to make it easier to work with. </span>
@@ -14698,11 +14698,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a new column based on the &quot;Sequencing_Tech&quot; column to simplify the information into sequencing type (long or short). </span>
 <span class="k">def</span> <span class="nf">readType</span><span class="p">(</span><span class="n">metadata</span><span class="p">):</span> 
+    <span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;Sequencing_Tech&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;Sequencing_Tech&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> 
     <span class="n">long_reads</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pacbio&#39;</span><span class="p">,</span> <span class="s1">&#39;nanopore&#39;</span><span class="p">]</span>
     <span class="n">short_reads</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;illumina&#39;</span><span class="p">,</span> <span class="s1">&#39;hi-c&#39;</span><span class="p">,</span> <span class="s1">&#39;hic&#39;</span><span class="p">,</span> <span class="s1">&#39;iontorrent&#39;</span><span class="p">,</span> <span class="s1">&#39;sanger&#39;</span><span class="p">,</span> <span class="s1">&#39;hiseq&#39;</span><span class="p">,</span> <span class="s1">&#39;10x&#39;</span><span class="p">,</span> <span class="s1">&#39;454&#39;</span><span class="p">]</span> 
     <span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;Sequencing_Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;No information provided&#39;</span> 
@@ -14727,18 +14728,14 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Set the datatypes for columns of a pandas dataframe. </span>
 <span class="k">def</span> <span class="nf">prepareMetadata</span><span class="p">(</span><span class="n">metadata</span><span class="p">):</span> 
-    <span class="n">datatypes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;First_Publication_Date&#39;</span> <span class="p">:</span> <span class="s1">&#39;datetime64[D]&#39;</span><span class="p">,</span> 
-                 <span class="s1">&#39;Submission_Date&#39;</span><span class="p">:</span> <span class="s1">&#39;datetime64[D]&#39;</span><span class="p">,</span> 
-                 <span class="s1">&#39;Sequencing_Tech&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
-                <span class="p">}</span>
-    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">metadata</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span> 
-        <span class="k">if</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">datatypes</span><span class="p">:</span> 
-            <span class="n">metadata</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">datatypes</span><span class="p">[</span><span class="n">column</span><span class="p">])</span> 
+    <span class="n">dates</span> <span class="o">=</span> <span class="p">[</span><span class="n">column</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">metadata</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;Date&#39;</span> <span class="ow">in</span> <span class="n">column</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">dates</span><span class="p">:</span> 
+        <span class="n">metadata</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">metadata</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
     <span class="k">return</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
 </pre></div>
 
@@ -14752,7 +14749,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Taking in a Pandas DataFrame of NCBI metadata, crawl the NCBI website to find any extra information that may not be as easy to find using command line tools. </span>
@@ -14773,7 +14770,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
                 <span class="n">done</span> <span class="o">=</span> <span class="n">done</span> <span class="o">+</span> <span class="mi">1</span> 
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">Complete: </span><span class="si">{</span><span class="n">done</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-        <span class="c1">#    for </span>
         
     <span class="k">def</span> <span class="nf">taxCreep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
         <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;Phylum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;N/A&#39;</span>
@@ -14784,32 +14780,31 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
                 <span class="n">done</span> <span class="o">=</span> <span class="n">done</span> <span class="o">+</span> <span class="mi">1</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">Complete: </span><span class="si">{</span><span class="n">done</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-        <span class="c1"># for accession in self.accessions: </span>
-        <span class="c1">#     print(self.getTax(accession))</span>
             
-    <span class="k">def</span> <span class="nf">firstPub</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
-        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">First_Publication_Date</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;Submission_Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Original_Contig_N50</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;Contig_N50&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> 
-        <span class="n">has_multi_pubs</span> <span class="o">=</span> <span class="p">[</span><span class="n">accession</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;1&#39;</span> <span class="k">for</span> <span class="n">accession</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">accessions</span><span class="p">]</span> 
-        <span class="n">multi_pubs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accessions</span><span class="p">[</span><span class="n">has_multi_pubs</span><span class="p">]</span> 
-        <span class="c1"># print(multi_pubs) </span>
+    <span class="k">def</span> <span class="nf">firstPub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_column</span> <span class="o">=</span> <span class="s1">&#39;Release_Date&#39;</span><span class="p">):</span> 
+        <span class="c1"># isolate accessions ending in characters other than 1 to check for original publications </span>
+        <span class="n">multi_pub_candidates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accessions</span><span class="p">[[</span><span class="n">accession</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;1&#39;</span> <span class="k">for</span> <span class="n">accession</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">accessions</span><span class="p">]]</span>
+
         <span class="k">with</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">ThreadPoolExecutor</span><span class="p">()</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span> 
-            <span class="n">first_pub</span> <span class="o">=</span> <span class="p">{</span><span class="n">accession</span> <span class="p">:</span> <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getFirstPub</span><span class="p">,</span> <span class="n">accession</span><span class="p">)</span> <span class="k">for</span> <span class="n">accession</span> <span class="ow">in</span> <span class="n">multi_pubs</span><span class="p">}</span> 
+            <span class="n">first_pub</span> <span class="o">=</span> <span class="p">{</span><span class="n">accession</span> <span class="p">:</span> <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getFirstPub</span><span class="p">,</span> <span class="n">accession</span><span class="p">)</span> <span class="k">for</span> <span class="n">accession</span> <span class="ow">in</span> <span class="n">multi_pub_candidates</span><span class="p">}</span> 
             <span class="n">done</span> <span class="o">=</span> <span class="mi">0</span>    
             <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">as_completed</span><span class="p">(</span><span class="n">first_pub</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span> 
                 <span class="n">done</span> <span class="o">+=</span> <span class="mi">1</span> 
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">Complete: </span><span class="si">{</span><span class="n">done</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">multi_pubs</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">Complete: </span><span class="si">{</span><span class="n">done</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">multi_pub_candidates</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
             <span class="n">first_pub</span> <span class="o">=</span> <span class="p">{</span><span class="n">accession</span> <span class="p">:</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="k">for</span> <span class="n">accession</span><span class="p">,</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">first_pub</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-            <span class="n">first_pub_date</span> <span class="o">=</span> <span class="p">{</span><span class="n">accession</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookFor</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">first_pub</span><span class="p">[</span><span class="n">accession</span><span class="p">])</span>
-                                              <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">accession</span> <span class="ow">in</span> <span class="n">multi_pubs</span><span class="p">}</span> 
-            <span class="n">first_contig_n50</span> <span class="o">=</span> <span class="p">{</span><span class="n">accession</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lookFor</span><span class="p">(</span><span class="s1">&#39;Contig N50&#39;</span><span class="p">,</span> <span class="n">first_pub</span><span class="p">[</span><span class="n">accession</span><span class="p">])</span>
-                                               <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">accession</span> <span class="ow">in</span> <span class="n">multi_pubs</span><span class="p">}</span> 
-            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">has_multi_pubs</span><span class="p">,</span> <span class="s1">&#39;First_Publication_Date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">first_pub_date</span><span class="p">[</span><span class="n">accession</span><span class="p">]</span> <span class="k">for</span> <span class="n">accession</span> <span class="ow">in</span> <span class="n">multi_pubs</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">has_multi_pubs</span><span class="p">,</span> <span class="s1">&#39;Original_Contig_N50&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">first_contig_n50</span><span class="p">[</span><span class="n">accession</span><span class="p">]</span> <span class="k">for</span> <span class="n">accession</span> <span class="ow">in</span> <span class="n">multi_pubs</span><span class="p">]</span> 
+            
+            <span class="c1"># Cut out any entries where the first pub accession just results in an empty list</span>
+            <span class="n">first_pub</span> <span class="o">=</span> <span class="p">{</span><span class="n">accession</span> <span class="p">:</span> <span class="n">accession_list</span> <span class="k">for</span> <span class="n">accession</span><span class="p">,</span> <span class="n">accession_list</span> <span class="ow">in</span> <span class="n">first_pub</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">accession_list</span><span class="p">}</span>
+            
+            <span class="n">first_pub_date</span> <span class="o">=</span> <span class="p">{</span><span class="n">accession</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookFor</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">accession_list</span><span class="p">)</span>
+                                              <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">accession</span><span class="p">,</span> <span class="n">accession_list</span> <span class="ow">in</span> <span class="n">first_pub</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span> 
+            <span class="n">first_contig_n50</span> <span class="o">=</span> <span class="p">{</span><span class="n">accession</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookFor</span><span class="p">(</span><span class="s1">&#39;Contig N50&#39;</span><span class="p">,</span> <span class="n">accession_list</span><span class="p">)</span>
+                                               <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">accession</span><span class="p">,</span> <span class="n">accession_list</span> <span class="ow">in</span> <span class="n">first_pub</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;First_Publication_Date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">[</span><span class="n">date_column</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">first_pub_date</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;Original_Contig_N50&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;Contig_N50&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">first_contig_n50</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">first_pub</span> <span class="o">=</span> <span class="n">first_pub</span>
-        <span class="c1"># return(self.table)</span>
                 
         
     <span class="k">def</span> <span class="nf">getPhyla</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">accession</span><span class="p">):</span> 

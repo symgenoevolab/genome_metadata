@@ -14647,10 +14647,14 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load the metadata and attach the necessary dataframes to the csv. </span>
-<span class="n">metadata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;metadata.csv&#39;</span><span class="p">)</span> 
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;metadata-sample.csv&#39;</span><span class="p">)</span> 
 <span class="n">metadata</span> <span class="o">=</span> <span class="n">prepareMetadata</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
-<span class="c1"># Remove duplicate species to keep only the newest assembly</span>
-<span class="n">metadata</span> <span class="o">=</span> <span class="n">metadataNewest</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span> 
+<span class="c1"># Remove duplicate species to keep only the newest assembly. </span>
+<span class="c1">#   Note that in newer versions of NCBI&#39;s command line tools, the submission date</span>
+<span class="c1">#   column has been replaced by more precise date columns. </span>
+<span class="c1">#   In this update, the metadataNewest function will sort by &#39;Release_Date&#39; by default</span>
+<span class="c1">#   but this can be changed using the &#39;sort_by&#39; parameter. </span>
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">metadataNewest</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">sort_by</span> <span class="o">=</span> <span class="s1">&#39;Submission_Date&#39;</span><span class="p">)</span> 
 </pre></div>
 
      </div>
@@ -14890,6 +14894,22 @@ class="
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Save the figure as a pdf </span>
 <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Phylum_Counts.pdf&#39;</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s1">&#39;pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span> <span class="o">=</span> <span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">pad_inches</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
      </div>
