@@ -1,3 +1,4 @@
+# Genome Metadata Visualizer 
 Genome Metadata Visualizer is a series of scripts written to process and visualise genome metadata after it is pulled from NCBI using the dataset and dataformat command line tools. Additional documentation for how to install and use NCBI's command line tools can be found at the following link: https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/
 
 This repository contains the following: 
